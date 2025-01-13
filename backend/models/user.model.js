@@ -1,17 +1,10 @@
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 const UserSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     trim: true,
-    required: 'Name is required'
-  },
-  email: {
-    type: String,
-    trim: true,
-    unique: 'Email already exists',
-    match: [/.+\@.+\..+/, 'Please fill a valid email address'],
-    required: 'Email is required'
+    required: 'Username is required'
   },
   hashed_password: {
     type: String,

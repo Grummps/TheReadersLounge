@@ -5,63 +5,59 @@ import config from '../../config/config'
 
 const signin = async (req, res) => {
   try {
-    let user = await User.findOne({
-      "email": req.body.email
-    })
-    if (!user)
+    // Find user by username
+    let user = await User.findOne({ username: req.body.username })
+    if (!user) {
       return res.status('401').json({
-        error: "User not found"
-      })
-
-    if (!user.authenticate(req.body.password)) {
-      return res.status('401').send({
-        error: "Email and password don't match."
+        error: 'User not found',
       })
     }
 
-    const token = jwt.sign({
-      _id: user._id
-    }, config.jwtSecret)
+    // Check password
+    if (!user.authenticate(req.body.password)) {
+      return res.status('401').send({
+        error: "Username and password don't match.",
+      })
+    }
 
-    res.cookie("t", token, {
-      expire: new Date() + 9999
-    })
+    // Sign JWT
+    const token = jwt.sign({ _id: user._id }, config.jwtSecret)
 
+    // Set cookie
+    res.cookie('t', token, { expire: new Date() + 9999 })
+
+    // Return response with user info
     return res.json({
       token,
       user: {
         _id: user._id,
-        name: user.name,
-        email: user.email
-      }
+        username: user.username,
+      },
     })
-
   } catch (err) {
-
     return res.status('401').json({
-      error: "Could not sign in"
+      error: 'Could not sign in',
     })
-
   }
 }
 
 const signout = (req, res) => {
-  res.clearCookie("t")
+  res.clearCookie('t')
   return res.status('200').json({
-    message: "signed out"
+    message: 'signed out',
   })
 }
 
 const requireSignin = expressJwt({
   secret: config.jwtSecret,
-  userProperty: 'auth'
+  userProperty: 'auth',
 })
 
 const hasAuthorization = (req, res, next) => {
   const authorized = req.profile && req.auth && req.profile._id == req.auth._id
-  if (!(authorized)) {
+  if (!authorized) {
     return res.status('403').json({
-      error: "User is not authorized"
+      error: 'User is not authorized',
     })
   }
   next()
@@ -71,5 +67,5 @@ export default {
   signin,
   signout,
   requireSignin,
-  hasAuthorization
+  hasAuthorization,
 }

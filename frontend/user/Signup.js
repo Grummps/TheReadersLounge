@@ -4,22 +4,20 @@ import { Link } from 'react-router-dom'
 
 export default function Signup() {
   const [values, setValues] = useState({
-    name: '',
-    email: '',
+    username: '',
     password: '',
     open: false,
     error: ''
   })
 
-  const handleChange = (name) => (event) => {
-    setValues({ ...values, [name]: event.target.value })
+  const handleChange = (fieldName) => (event) => {
+    setValues({ ...values, [fieldName]: event.target.value })
   }
 
   const clickSubmit = () => {
-    console.log("Submit clicked");
     const user = {
-      name: values.name || undefined,
-      email: values.email || undefined,
+      // No need for `name` or `email` now
+      username: values.username || undefined,
       password: values.password || undefined
     }
     create(user).then((data) => {
@@ -32,32 +30,22 @@ export default function Signup() {
   }
 
   return (
-    /* 
-      Full-screen gray-black gradient background:
-      - Uses Tailwind’s bg-gradient-to-br, from-gray-700, via-gray-800, to-black 
-    */
     <div className="min-h-screen bg-gradient-to-br from-gray-700 via-gray-800 to-black flex items-center justify-center">
-      
-      {/* 
-        Black transparent box:
-        - background: black with ~60% opacity
-        - white text, some padding, max width, rounded corners 
-      */}
       <div className="w-full max-w-md bg-black bg-opacity-60 text-white p-6 rounded shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">SIGN UP</h2>
 
-        {/* Name Field */}
+        {/* Username Field */}
         <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium mb-1">
+          <label htmlFor="username" className="block text-sm font-medium mb-1">
             Username
           </label>
           <input
-            id="name"
+            id="username"
             type="text"
             className="block w-full bg-transparent border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-green-500 placeholder-gray-200"
             placeholder="Enter your username..."
-            value={values.name}
-            onChange={handleChange('name')}
+            value={values.username}
+            onChange={handleChange('username')}
           />
         </div>
 
