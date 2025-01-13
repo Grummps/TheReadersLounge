@@ -44,35 +44,20 @@ export default function Signup() {
         - white text, some padding, max width, rounded corners 
       */}
       <div className="w-full max-w-md bg-black bg-opacity-60 text-white p-6 rounded shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">SIGN UP</h2>
 
         {/* Name Field */}
         <div className="mb-4">
           <label htmlFor="name" className="block text-sm font-medium mb-1">
-            Name
+            Username
           </label>
           <input
             id="name"
             type="text"
             className="block w-full bg-transparent border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-green-500 placeholder-gray-200"
-            placeholder="Enter your name"
+            placeholder="Enter your username..."
             value={values.name}
             onChange={handleChange('name')}
-          />
-        </div>
-
-        {/* Email Field */}
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium mb-1">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            className="block w-full bg-transparent border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-green-500 placeholder-gray-200"
-            placeholder="Enter your email"
-            value={values.email}
-            onChange={handleChange('email')}
           />
         </div>
 
@@ -85,7 +70,7 @@ export default function Signup() {
             id="password"
             type="password"
             className="block w-full bg-transparent border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-green-500 placeholder-gray-200"
-            placeholder="Enter your password"
+            placeholder="Enter your password..."
             value={values.password}
             onChange={handleChange('password')}
           />

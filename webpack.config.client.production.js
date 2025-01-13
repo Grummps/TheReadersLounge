@@ -3,11 +3,9 @@ const CURRENT_WORKING_DIR = process.cwd()
 
 const config = {
     mode: "production",
-    entry: [
-        path.join(CURRENT_WORKING_DIR, 'client/main.js')
-    ],
+    entry: [path.join(CURRENT_WORKING_DIR, './frontend/main.js')],
     output: {
-        path: path.join(CURRENT_WORKING_DIR , '/dist'),
+        path: path.join(CURRENT_WORKING_DIR, '/dist/'),
         filename: 'bundle.js',
         publicPath: "/dist/"
     },
@@ -16,8 +14,24 @@ const config = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
+                use: ['babel-loader']
+            },
+            {
+                test: /\.css$/,
                 use: [
-                    'babel-loader'
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    'tailwindcss',
+                                    'autoprefixer'
+                                ]
+                            }
+                        }
+                    }
                 ]
             },
             {
@@ -25,7 +39,9 @@ const config = {
                 use: 'file-loader'
             }
         ]
-    }
+    },
+    resolve: {
+        fullySpecified: false,
+    },
 }
-
 module.exports = config

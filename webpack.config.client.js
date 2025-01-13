@@ -8,10 +8,10 @@ const config = {
     devtool: 'eval-source-map',
     entry: [
         'webpack-hot-middleware/client?reload=true',
-        path.join(CURRENT_WORKING_DIR, 'client/main.js')
+        path.join(CURRENT_WORKING_DIR, './frontend/main.js')
     ],
     output: {
-        path: path.join(CURRENT_WORKING_DIR , '/dist'),
+        path: path.join(CURRENT_WORKING_DIR, '/dist/'),
         filename: 'bundle.js',
         publicPath: '/dist/'
     },
@@ -27,17 +27,36 @@ const config = {
             {
                 test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
                 use: 'file-loader'
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    'tailwindcss',
+                                    'autoprefixer'
+                                ]
+                            }
+                        }
+                    }
+                ]
             }
         ]
-    },  
+    },
     plugins: [
-          new webpack.HotModuleReplacementPlugin(),
-          new webpack.NoEmitOnErrorsPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
     ],
     resolve: {
         alias: {
-          'react-dom': '@hot-loader/react-dom'
-        }
+            'react-dom': '@hot-loader/react-dom'
+        },
+        fullySpecified: false,
     }
 }
 
