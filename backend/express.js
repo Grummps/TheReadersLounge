@@ -6,8 +6,8 @@ import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
 import Template from '../template'
-import userRoutes from './routes/user.routes'
-import authRoutes from './routes/auth.routes'
+import userRoutes from './routes/user.routes.js'
+import authRoutes from './routes/auth.routes.js'
 
 // modules for server side rendering
 import React from 'react'
