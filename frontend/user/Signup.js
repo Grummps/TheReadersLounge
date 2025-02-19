@@ -16,7 +16,6 @@ export default function Signup() {
 
   const clickSubmit = () => {
     const user = {
-      // No need for `name` or `email` now
       username: values.username || undefined,
       password: values.password || undefined
     }
@@ -30,8 +29,8 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-700 via-gray-800 to-black flex items-center justify-center">
-      <div className="w-full max-w-md bg-black bg-opacity-60 text-white p-6 rounded shadow-md">
+    <div className="min-h-screen bg-gradient-to-br from-gray-700 via-gray-800 to-black flex justify-center">
+      <div className="relative w-full max-w-md bg-black bg-opacity-0 text-white p-6 rounded">
         <h2 className="text-2xl font-bold mb-6 text-center">SIGN UP</h2>
 
         {/* Username Field */}
