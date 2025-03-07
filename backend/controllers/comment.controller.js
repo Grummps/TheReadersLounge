@@ -2,11 +2,11 @@ import Comment from '../models/comment.model'
 import errorHandler from '../helpers/dbErrorHandler'
 
 const create = async (req, res) => {
-    const comment = new Comment(req.body)
     try {
-        await comment.save()
+        const savedComment = await Comment.create(req.body);
         return res.status(200).json({
-            message: "Comment created"
+            message: "Comment created",
+            comment: savedComment
         })
     } catch (err) {
         return res.status(400).json({
@@ -45,4 +45,10 @@ const remove = async (req, res) => {
             error: errorHandler.getErrorMessage(err),
         })
     }
+}
+
+export default { 
+    create, 
+    list, 
+    remove
 }

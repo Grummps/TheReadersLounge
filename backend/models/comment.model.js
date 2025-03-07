@@ -1,7 +1,6 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
+import mongoose from 'mongoose'
 
-const commentSchema = new Schema(
+const commentSchema = new mongoose.Schema(
     {
         author: {
             type: Schema.Types.ObjectId,
