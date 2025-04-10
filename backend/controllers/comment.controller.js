@@ -17,8 +17,8 @@ const create = async (req, res) => {
 
 const list = async (req, res) => {
     try {
-        const comments = await Comment.find()
-        return res.status(200).json(comments)
+        const comments = await Comment.find();
+        return res.status(200).json(comments);
     } catch (err) {
         return res.status(400).json({
             error: errorHandler.getErrorMessage(err),

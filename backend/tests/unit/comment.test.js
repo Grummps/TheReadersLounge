@@ -67,8 +67,48 @@ describe('Comment Controller tests', () => {
 
             await commentCtrl.create(req, res, next);
 
-            expect(next).toHaveBeenCalledWith(expect.any(Error));
+            expect(commentCtrl.create).toThrowError(errorMessage.message);
         });
 
+    });
+    describe('list', () => {
+        it('should have a list function', () => {
+            expect(typeof commentCtrl.list).toBe('function');
+        });
+        it('should call Comment.find', async () => {
+            await commentCtrl.list(req, res, next);
+            expect(Comment.find).toHaveBeenCalled();
+        });
+        it('should return an array of comments', async () => {
+            const savedComments = [ {text: 'test comment 1'}, {text: 'test comment 2'} ];
+            Comment.find.mockResolvedValue(savedComments);
+
+            req = httpMocks.createRequest();
+            res = httpMocks.createResponse();
+
+            await commentCtrl.list(req, res, next);
+            
+            expect(res.statusCode).toBe(200);
+            const data = res._getJSONData();
+            expect(data).toEqual(savedComments);
+        });
+        it('should return 200 response code', async () => {
+            // to do
+        });
+        it('should handle errors', async () => {
+            const res = {
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn(),
+            };
+
+            const req = {};
+            const next = jest.fn();
+
+            const errorMessage = { message: 'Error listing comments' };
+
+            await commentCtrl.list(req, res, next);
+            expect(res.status).toHaveBeenCalledWith(400);
+            expect(res.json).toThrowError(errorMessage.message);
+        })
     });
 });
