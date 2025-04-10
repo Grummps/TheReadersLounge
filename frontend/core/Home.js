@@ -20,7 +20,7 @@ export default function Home() {
 
 
   return (
-    <div className="relative min-h-screen bg-black text-white">
+    <div className="relative min-h-screen bg-neutral-950 text-white">
     {/* Backgrounds / Effects */}
     <TriangleBackground />
     <SideFadeBars />
@@ -56,11 +56,11 @@ export default function Home() {
         {/* Main Content */}
         <div className="px-4">
           {/* Book Clubs */}
-          <section className="mb-8 bg-black w-full fixed top-[15vw] left-0 right-0 opacity-80 shadow-xl">
+          <section className="mb-8 bg-neutral-900 w-full fixed top-[15vw] left-0 right-0 opacity-80 shadow-xl">
             <h2 className="text-xl font-bold mb-4 p-4">Book Clubs</h2>
             <div className="flex space-x-4 overflow-auto">
               {/* Book Club Card */}
-              <div className="bg-black p-10 rounded">
+              <div className="bg-neutral-900 p-10 rounded">
                 <h3 className="text-lg font-semibold mb-2">Book Club Title</h3>
                 <p className="text-sm mb-2">Description of the book club...</p>
                 <Link to="/" className="text-green-500 hover:underline">
@@ -73,11 +73,11 @@ export default function Home() {
           
 
           {/* Book Reviews */}
-          <section className="mb-8 bg-black w-full fixed top-[5vw] left-0 right-0 opacity-80 shadow-xl">
+          <section className="mb-8 bg-neutral-900 w-full fixed top-[5vw] left-0 right-0 opacity-80 shadow-xl">
             <h2 className="text-xl font-bold mb-4 p-4">Book Reviews</h2>
             <div className="flex space-x-4 overflow-auto">
               {/* Book Review Card */}
-              <div className="bg-black p-10 rounded">
+              <div className="bg-neutral-900 p-10 rounded">
                 <h3 className="text-lg font-semibold mb-2">Book Title</h3>
                 <p className="text-sm mb-2">Review of the book...</p>
                 <Link to="/" className="text-green-500 hover:underline">
@@ -90,11 +90,11 @@ export default function Home() {
           
 
           {/* Your Clubs */}
-          <section className="mb-8 bg-black w-full fixed top-[25vw] left-0 right-0 opacity-80 shadow-xl">
+          <section className="mb-8 bg-neutral-900 w-full fixed top-[25vw] left-0 right-0 opacity-80 shadow-xl">
             <h2 className="text-xl font-bold mb-4 p-4">Your Clubs</h2>
             <div className="flex space-x-4 overflow-auto">
               {/* Your Club Card */}
-              <div className="bg-black p-10 rounded">
+              <div className="bg-neutral-900 p-10 rounded">
                 <h3 className="text-lg font-semibold mb-2">Book Club Title</h3>
                 <p className="text-sm mb-2">Description of the book club...</p>
                 <Link to="/" className="text-green-500 hover:underline">

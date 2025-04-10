@@ -107,7 +107,7 @@ export default function TriangleBackground() {
                     triangle.hovered = false;
                 }
 
-                triangle.activation = Math.max(0, triangle.activation - 0.04);
+                triangle.activation = Math.max(0, triangle.activation - 0.02);
 
                 ctx.beginPath();
                 ctx.moveTo(triangle.points[0].x, triangle.points[0].y);
@@ -117,13 +117,13 @@ export default function TriangleBackground() {
                 ctx.fillStyle = 'rgba(100, 100, 100, 0.1)';
                 ctx.fill();
 
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
                 ctx.lineWidth = .5;
                 ctx.stroke();
                 
 
                 if (triangle.activation > 0) {
-                    ctx.fillStyle = `rgba(25, 25, 25, ${triangle.activation})`;
+                    ctx.fillStyle = `rgba(30, 30, 30, ${triangle.activation})`;
                     ctx.fill();
                 };
             });
