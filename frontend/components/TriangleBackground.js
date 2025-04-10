@@ -12,7 +12,7 @@ export default function TriangleBackground() {
         // Creates grid of triangles
         const initTriangles = () => {
             const triangles = [];
-            const side = 50; // Length of each side of the triangle
+            const side = 100; // Length of each side of the triangle
             const height = side * (Math.sqrt(3) / 2); // Height of the triangle
             const cols = Math.ceil(canvas.width / side);
             const rows = Math.ceil(canvas.height / height);
@@ -102,7 +102,7 @@ export default function TriangleBackground() {
                 if (isHovered && !triangle.hovered) { 
                     triangle.activation = 1;
                     triangle.hovered = true;
-                } // If the mouse is not over the triangle and it was hovered, set hovered to false
+                } // If the mouse is not over the triangle, set hovered to false
                 else if (!isHovered) {
                     triangle.hovered = false;
                 }
@@ -117,8 +117,13 @@ export default function TriangleBackground() {
                 ctx.fillStyle = 'rgba(100, 100, 100, 0.1)';
                 ctx.fill();
 
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.lineWidth = .5;
+                ctx.stroke();
+                
+
                 if (triangle.activation > 0) {
-                    ctx.fillStyle = `rgba(74, 222, 128, ${triangle.activation})`;
+                    ctx.fillStyle = `rgba(25, 25, 25, ${triangle.activation})`;
                     ctx.fill();
                 };
             });

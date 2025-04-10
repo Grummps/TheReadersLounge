@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import TriangleBackground from '../components/TriangleBackground';
+import SideFadeBars from '../components/SideFadeBars';
 
 export default function Home() {
   const [createMenuOpen, setCreateMenuOpen] = useState(false);
@@ -19,10 +20,13 @@ export default function Home() {
 
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-gray-700 via-gray-800 to-black text-white">
-      <TriangleBackground/>
+    <div className="relative min-h-screen bg-black text-white">
+    {/* Backgrounds / Effects */}
+    <TriangleBackground />
+    <SideFadeBars />
 
-      <div className="relative ">
+    {/* Foreground Content */}
+      <div className="relative z-10">
         {/* Header with Create + Button */}
         <div className="relative p-4 flex justify-end">
           <button
@@ -52,11 +56,11 @@ export default function Home() {
         {/* Main Content */}
         <div className="px-4">
           {/* Book Clubs */}
-          <section className="mb-8">
-            <h2 className="text-xl font-bold mb-4">Book Clubs</h2>
+          <section className="mb-8 bg-black w-full fixed top-[15vw] left-0 right-0 opacity-80 shadow-xl">
+            <h2 className="text-xl font-bold mb-4 p-4">Book Clubs</h2>
             <div className="flex space-x-4 overflow-auto">
               {/* Book Club Card */}
-              <div className="bg-gray-800 p-4 rounded">
+              <div className="bg-black p-10 rounded">
                 <h3 className="text-lg font-semibold mb-2">Book Club Title</h3>
                 <p className="text-sm mb-2">Description of the book club...</p>
                 <Link to="/" className="text-green-500 hover:underline">
@@ -66,14 +70,14 @@ export default function Home() {
             </div>
           </section>
 
-          <hr className="border-gray-600 my-8" />
+          
 
           {/* Book Reviews */}
-          <section className="mb-8">
-            <h2 className="text-xl font-bold mb-4">Book Reviews</h2>
+          <section className="mb-8 bg-black w-full fixed top-[5vw] left-0 right-0 opacity-80 shadow-xl">
+            <h2 className="text-xl font-bold mb-4 p-4">Book Reviews</h2>
             <div className="flex space-x-4 overflow-auto">
               {/* Book Review Card */}
-              <div className="bg-gray-800 p-4 rounded">
+              <div className="bg-black p-10 rounded">
                 <h3 className="text-lg font-semibold mb-2">Book Title</h3>
                 <p className="text-sm mb-2">Review of the book...</p>
                 <Link to="/" className="text-green-500 hover:underline">
@@ -83,14 +87,14 @@ export default function Home() {
             </div>
           </section>
 
-          <hr className="border-gray-600 my-8" />
+          
 
           {/* Your Clubs */}
-          <section className="mb-8">
-            <h2 className="text-xl font-bold mb-4">Your Clubs</h2>
+          <section className="mb-8 bg-black w-full fixed top-[25vw] left-0 right-0 opacity-80 shadow-xl">
+            <h2 className="text-xl font-bold mb-4 p-4">Your Clubs</h2>
             <div className="flex space-x-4 overflow-auto">
               {/* Your Club Card */}
-              <div className="bg-gray-800 p-4 rounded">
+              <div className="bg-black p-10 rounded">
                 <h3 className="text-lg font-semibold mb-2">Book Club Title</h3>
                 <p className="text-sm mb-2">Description of the book club...</p>
                 <Link to="/" className="text-green-500 hover:underline">
