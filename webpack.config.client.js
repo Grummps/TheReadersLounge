@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const { run } = require('jest')
 const CURRENT_WORKING_DIR = process.cwd()
 
 
@@ -29,7 +30,7 @@ const config = {
                     options: {
                         presets: [
                             '@babel/preset-env',
-                            '@babel/preset-react'
+                            ['@babel/preset-react', { runtime: 'automatic' }]
                         ],
                         plugins: [
                             isDev && require.resolve('react-refresh/babel'),

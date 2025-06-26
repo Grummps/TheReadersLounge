@@ -19,6 +19,7 @@ import App from '../frontend/App'
 
 const CURRENT_WORKING_DIR = process.cwd()
 const app = express()
+const isDev = process.env.NODE_ENV === 'development'
 
 // --- Development bundle (HMR + webpack middleware) ---
 devBundle.compile(app)
@@ -42,6 +43,18 @@ app.use('/', authRoutes)
 
 // --- React Server-Side Render handler ---
 app.get('*', (req, res) => {
+  if (isDev) {
+    return res
+      .status(200)
+      .send(
+        Template({
+          markup: '',  // no markup yet, will be filled by React
+          css: ''      // no inlined CSS needed when using Tailwind
+        })
+      )
+  }
+
+  // Prod: real SSR 
   const context = {}
 
   // Render the app to a string, within a StaticRouter
@@ -57,7 +70,7 @@ app.get('*', (req, res) => {
   }
 
   // Send HTML with the rendered markup; CSS is linked in your template
-  res
+  return res
     .status(200)
     .send(
       Template({

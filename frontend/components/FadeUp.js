@@ -1,30 +1,18 @@
-export function FadeUp({ children }) {
-    let ref = useRef(null);
-    let isInView = useInView(ref);
-    let [isVisible, setIsVisible] = useState(false);
+import { motion } from 'framer-motion';
+import React from 'react';
 
-    useEffect(() => {
-        if (isInView) {
-            setIsVisible(true);
-        }
-    }, [isInView, isVisible]);
-
+export function FadeUp({
+    children,
+    delay = 0,
+    duration = 0.5,
+}) {
     return (
         <motion.div
-            ref={ref}
-            variants={{
-                hidden: {
-                    opacity: 0,
-                    y: 15
-                },
-                visible: {
-                    opacity: 1,
-                    y: 0
-                },
-            }}
+            variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
             initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            transition={{ duration: 0.2, delay: 0.3 }}
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ delay, type: "spring", duration }}
         >
             {children}
         </motion.div>

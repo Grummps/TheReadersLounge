@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import TriangleBackground from '../components/TriangleBackground';
 import SideFadeBars from '../components/SideFadeBars';
+import { FadeUp } from '../components/FadeUp';
 
 export default function Home() {
   const [createMenuOpen, setCreateMenuOpen] = useState(false);
@@ -56,7 +57,7 @@ export default function Home() {
         {/* Main Content */}
         <div className="px-4">
           {/* Book Clubs */}
-          <section className="mb-8 bg-neutral-900 w-full fixed top-[15vw] left-0 right-0 opacity-80 shadow-xl">
+          <FadeUp className="mb-8 bg-neutral-900 w-full fixed top-[15vw] left-0 right-0 opacity-80 shadow-xl">
             <h2 className="text-xl font-bold mb-4 p-4">Book Clubs</h2>
             <div className="flex space-x-4 overflow-auto">
               {/* Book Club Card */}
@@ -68,12 +69,12 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-          </section>
+          </FadeUp>
 
           
 
           {/* Book Reviews */}
-          <section className="mb-8 bg-neutral-900 w-full fixed top-[5vw] left-0 right-0 opacity-80 shadow-xl">
+          <FadeUp className="mb-8 bg-neutral-900 w-full fixed top-[5vw] left-0 right-0 opacity-80 shadow-xl">
             <h2 className="text-xl font-bold mb-4 p-4">Book Reviews</h2>
             <div className="flex space-x-4 overflow-auto">
               {/* Book Review Card */}
@@ -85,12 +86,12 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-          </section>
+          </FadeUp>
 
           
 
           {/* Your Clubs */}
-          <section className="mb-8 bg-neutral-900 w-full fixed top-[25vw] left-0 right-0 opacity-80 shadow-xl">
+          <FadeUp className="mb-8 bg-neutral-900 w-full fixed top-[25vw] left-0 right-0 opacity-80 shadow-xl">
             <h2 className="text-xl font-bold mb-4 p-4">Your Clubs</h2>
             <div className="flex space-x-4 overflow-auto">
               {/* Your Club Card */}
@@ -102,7 +103,7 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-          </section>
+          </FadeUp>
         </div>
       </div>
     </div>

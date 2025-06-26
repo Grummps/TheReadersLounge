@@ -25,7 +25,7 @@ module.exports = {
             configFile: false,
             presets: [
               ['@babel/preset-env', { targets: { node: 'current' } }],
-              '@babel/preset-react'
+              ['@babel/preset-react', { runtime: 'automatic' }]
             ],
             plugins: []  // no react-refresh/babel here
           }
