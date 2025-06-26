@@ -9,26 +9,21 @@ import Template from '../template'
 import userRoutes from './routes/user.routes.js'
 import authRoutes from './routes/auth.routes.js'
 
-// modules for server side rendering
+// ONLY in development: webpack middleware & HMR
+import devBundle from './devBundle'
+
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import MainRouter from '../frontend/MainRouter'
 import { StaticRouter } from 'react-router-dom'
-
-import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles'
-import theme from '../frontend/theme'
-//end
-
-//comment out before building for production
-import devBundle from './devBundle'
+import App from '../frontend/App'
 
 const CURRENT_WORKING_DIR = process.cwd()
 const app = express()
 
-//comment out before building for production
+// --- Development bundle (HMR + webpack middleware) ---
 devBundle.compile(app)
 
-// parse body params and attache them to req.body
+// --- Standard middleware ---
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
@@ -38,42 +33,50 @@ app.use(helmet())
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors())
 
+// --- Static asset serving ---
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
-// mount routes
+// --- API routes ---
 app.use('/', userRoutes)
 app.use('/', authRoutes)
 
+// --- React Server-Side Render handler ---
 app.get('*', (req, res) => {
-  const sheets = new ServerStyleSheets()
   const context = {}
+
+  // Render the app to a string, within a StaticRouter
   const markup = ReactDOMServer.renderToString(
-    sheets.collect(
-          <StaticRouter location={req.url} context={context}>
-            <ThemeProvider theme={theme}>
-              <MainRouter />
-            </ThemeProvider>
-          </StaticRouter>
-        )
+    <StaticRouter location={req.url} context={context}>
+      <App />
+    </StaticRouter>
+  )
+
+  // Redirect on React-router <Redirect>
+  if (context.url) {
+    return res.redirect(303, context.url)
+  }
+
+  // Send HTML with the rendered markup; CSS is linked in your template
+  res
+    .status(200)
+    .send(
+      Template({
+        markup,      // the React HTML
+        css: ''      // no inlined CSS needed when using Tailwind
+      })
     )
-    if (context.url) {
-      return res.redirect(303, context.url)
-    }
-    const css = sheets.toString()
-    res.status(200).send(Template({
-      markup: markup,
-      css: css
-    }))
 })
 
-// Catch unauthorised errors
+// --- Error handling for auth ---
 app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
-    res.status(401).json({"error" : err.name + ": " + err.message})
-  }else if (err) {
-    res.status(400).json({"error" : err.name + ": " + err.message})
-    console.log(err)
+    return res.status(401).json({ error: `${err.name}: ${err.message}` })
   }
+  if (err) {
+    console.error(err)
+    return res.status(400).json({ error: `${err.name}: ${err.message}` })
+  }
+  next()
 })
 
 export default app

@@ -1,15 +1,19 @@
 const path = require('path')
 const webpack = require('webpack')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const CURRENT_WORKING_DIR = process.cwd()
+
+
+const isDev = process.env.NODE_ENV !== 'production'
 
 const config = {
     name: "browser",
-    mode: "development",
-    devtool: 'eval-source-map',
+    mode: isDev ? "development" : "production",
+    devtool: isDev ? 'eval-source-map' : false,
     entry: [
-        'webpack-hot-middleware/client?reload=true',
+        isDev && 'webpack-hot-middleware/client?reload=true',
         path.join(CURRENT_WORKING_DIR, './frontend/main.js')
-    ],
+    ].filter(Boolean),
     output: {
         path: path.join(CURRENT_WORKING_DIR, '/dist/'),
         filename: 'bundle.js',
@@ -18,15 +22,21 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.[jt]sx?$/,
                 exclude: /node_modules/,
-                use: [
-                    'babel-loader'
-                ]
-            },
-            {
-                test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
-                use: 'file-loader'
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-react'
+                        ],
+                        plugins: [
+                            isDev && require.resolve('react-refresh/babel'),
+                            require.resolve('@babel/plugin-transform-runtime')
+                        ].filter(Boolean)
+                    }
+                }
             },
             {
                 test: /\.css$/,
@@ -45,17 +55,23 @@ const config = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.(ttf|eot|svg|gif|jpe?g|png)(\?[\s\S]+)?$/,
+                use: 'file-loader'
             }
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
+        isDev && new webpack.HotModuleReplacementPlugin(),
+        isDev && new ReactRefreshWebpackPlugin({
+            overlay: {
+                sockIntegration: 'whm'
+            }
+        }),
         new webpack.NoEmitOnErrorsPlugin()
-    ],
+    ].filter(Boolean),
     resolve: {
-        alias: {
-            'react-dom': '@hot-loader/react-dom'
-        },
         fullySpecified: false,
     }
 }

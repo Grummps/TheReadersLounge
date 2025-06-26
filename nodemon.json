@@ -1,7 +1,10 @@
 {
     "verbose": false,
     "watch": [
-      "./server"
+      "./backend"
     ],
+    "ignore": ["dist/*"],
+    "ext": "js,jsx,json",
+    "delay": "250",
     "exec": "npx webpack --mode=development --config webpack.config.server.js && node ./dist/server.generated.js"
 }

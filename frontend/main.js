@@ -1,5 +1,13 @@
 import React from 'react'
-import { hydrate } from 'react-dom'
+import { hydrateRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import App from './App'
+import './tailwind.css'     // only the client needs to import CSS
 
-hydrate(<App/>, document.getElementById('root'))
+const container = document.getElementById('root')
+hydrateRoot(
+  container,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+)
